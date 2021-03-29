@@ -1,5 +1,5 @@
 (deffacts datos
-	(num_magico 21 numeros 5 3 8 14 7 pasos)
+	(num_magico 21 numeros pasos)
 )
 
 (defrule suma
@@ -24,8 +24,23 @@
 =>
 	(assert (num_magico ?res numeros $?num1 $?num2 $?num3 (- ?y ?x) pasos $?aux resta ?y ?x)))
 
+(defrule dividir_tipo1
+	(num_magico ?res numeros $?num1 ?x $?num2 ?y $?num3 pasos $?aux)
+	(test (< ?y ?x))
+	(test (= (mod ?x ?y) 0))
+=>
+	(assert (num_magico ?res numeros $?num1 $?num2 $?num3 (div ?x ?y) pasos $?aux divide ?x ?y)))
+
+(defrule dividir_tipo1
+	(num_magico ?res numeros $?num1 ?x $?num2 ?y $?num3 pasos $?aux)
+	(test (< ?x ?y))
+	(test (= (mod ?y ?x) 0))
+=>
+	(assert (num_magico ?res numeros $?num1 $?num2 $?num3 (div ?y ?x) pasos $?aux divide ?y ?x)))
+
 (defrule no_num
 	(num_magico ?res numeros $?num1 pasos $?aux)
-	(test ())	
+	(test (= (length $?num1) 0))	
 =>
+	(print "No quedan numeros con los que operar.")
 	(halt))
