@@ -42,5 +42,5 @@
 	(num_magico ?res numeros ?num pasos $?aux)
 	(test (= ?res ?num))
 =>
-	(printout "Se ha llegado a la solucion con los siguientes pasos: " $?aux)
+	(printout t "Se ha llegado a la solucion con los siguientes pasos: " $?aux crlf)
 	(halt))
